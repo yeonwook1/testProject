@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="sample">
+      
+<select id="sample.selectBoardList" resultType="hashmap" parameterType="hashmap">
+	/* sample.selectBoardList 테스트 */
+	SELECT BOARD_NO
+	     , TITLE
+	     , CONTENT
+	     , WRITER
+	     , UPD_ID
+	     , TO_CHAR(UPD_DTM, 'YYYY-MM-DD-MI:SS') AS UPD_DTM
+	     , REG_ID
+	     , TO_CHAR(REG_DTM, 'YYYY-MM-DD-MI:SS') AS REG_DTM 
+	  FROM TOAST_BOARD
+	 ORDER BY BOARD_NO DESC
+</select>
+
+<insert id="sample.BoardInsert" parameterType="hashmap">
+	/* sample.BoardInsert 인서트 */
+   <selectKey keyProperty="BNOSEQ" resultType="INT" order="BEFORE">
+		SELECT BNO_BOARD_SEQ.NEXTVAL FROM DUAL
+    </selectKey>
+	INSERT INTO TOAST_BOARD(BOARD_NO, TITLE, CONTENT, WRITER, UPD_ID, UPD_DTM, REG_ID, REG_DTM)
+  VALUES (#{BNOSEQ}, #{title}, #{content}, '김욱', '김욱', SYSDATE, '김욱', SYSDATE)
+</insert>
+      
+<select id="sample.BoardItem" resultType="hashmap" parameterType="hashmap">
+	/* sample.BoardItem 리스트 상세 보기 */
+	SELECT TITLE
+	     , CONTENT 
+	  FROM TOAST_BOARD 
+	 WHERE BOARD_NO = #{board_no}
+	   AND TITLE = #{title}
+</select>
+</mapper>
