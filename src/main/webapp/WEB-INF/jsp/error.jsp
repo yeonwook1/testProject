@@ -8,6 +8,6 @@
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 </head>
 <body>
-<h2>에러 페이지 확인하세요.</h2>
+<h2>에러 페이지 확인하세요....</h2>
 </body>
 </html>
